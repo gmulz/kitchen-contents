@@ -1,0 +1,23 @@
+[
+    {
+        "model": "kitchenapp.kitchenarea",
+        "pk": 1,
+        "fields": {
+            "name": "Pantry"
+        }
+    },
+    {
+        "model": "kitchenapp.kitchenarea",
+        "pk": 2,
+        "fields": {
+            "name": "Fridge"
+        }
+    },
+    {
+        "model": "kitchenapp.kitchenarea",
+        "pk": 3,
+        "fields": {
+            "name": "Freezer"
+        }
+    }
+]
