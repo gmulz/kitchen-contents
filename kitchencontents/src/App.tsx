@@ -6,6 +6,7 @@ import KitchenArea from './models/KitchenArea';
 import KitchenAreaComponent from './components/KitchenArea';
 import Food from './models/Food';
 import Category from './models/Category';
+import { KitchenAreasContainer } from './AppStyles';
 
 interface AppState {
   kitchenAreas: KitchenArea[];
@@ -40,9 +41,9 @@ class App extends React.Component<{}, AppState> {
     })
 
     return (
-      <div>
+      <KitchenAreasContainer>
         {kitchenComponents}
-      </div>
+      </KitchenAreasContainer>
     );
   }
 }

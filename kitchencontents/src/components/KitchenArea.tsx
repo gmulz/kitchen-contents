@@ -4,6 +4,7 @@ import Food from '../models/Food';
 import KitchenArea from '../models/KitchenArea';
 import KitchenAPIService from '../services/apiService';
 import CategoryComponent from './Category';
+import { KitchenAreaContainer } from './KitchenAreaStyles';
 
 
 interface KitchenAreaProps {
@@ -24,12 +25,12 @@ class KitchenAreaComponent extends React.Component<KitchenAreaProps, {}> {
             return <CategoryComponent category={cat} foods={food}></CategoryComponent>
         })
         return (
-        <div>
+        <KitchenAreaContainer>
             <div>
                 <h1>{this.props.kitchenArea.name}</h1>
             </div>
             {categoryComponents}
-        </div>
+        </KitchenAreaContainer>
         );
     }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import Food from '../models/Food';
+import { Description, ExpirationDate, FoodItem, QuantitySpinner } from './FoodItemStyles';
 
 
 interface FoodItemProps {
@@ -18,11 +19,15 @@ class FoodItemComponent extends React.Component<FoodItemProps, FoodItemState> {
 
     render() {
         return (
-        <div>
-            {this.props.foodItem.name}
-            {this.props.foodItem.expiry_date}
-            <span>{this.props.foodItem.quantity}</span>
-        </div>
+        <FoodItem>
+            <QuantitySpinner 
+                type="number"
+                value={this.props.foodItem.quantity}
+            />
+            <Description>{this.props.foodItem.name}</Description>
+            <ExpirationDate>{this.props.foodItem.expiry_date}</ExpirationDate>
+            
+        </FoodItem>
         )
     }
 }

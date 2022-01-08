@@ -1,6 +1,8 @@
+import moment from 'moment';
 import React from 'react';
 import Category from '../models/Category';
 import Food from '../models/Food';
+import { DateButton, NewFoodCreator, QuantitySpinner } from './CategoryStyles';
 import FoodItemComponent from './FoodItem';
 
 export interface CategoryComponentProps {
@@ -28,6 +30,13 @@ class CategoryComponent extends React.Component<CategoryComponentProps, Category
 
     }
 
+    onKeyPress(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            
+        }
+    }
+
     render() {
         let foodComponents = this.props.foods.map(food => <FoodItemComponent foodItem={food}></FoodItemComponent>)
         return (
@@ -36,20 +45,22 @@ class CategoryComponent extends React.Component<CategoryComponentProps, Category
                 <div className='category-title-area'>
                     <span className='category-title'>{this.props.category.name}</span>
                 </div>
-                <div className='new-food-creator'>
+                <NewFoodCreator
+                    onKeyPress={this.onKeyPress.bind(this)}
+                >
                     New Food: <input 
                         type='text'
                         value={this.state.inputName}
                         placeholder='Description'
                     />
-                    <input type='number'
+                    <QuantitySpinner type='number'
                         value={this.state.inputQuantity}
                         placeholder='Quantity'
                     />
-                    <button className='date-button'>
-                        
-                    </button>
-                </div>
+                    <DateButton>
+                        {moment(this.state.inputExpirationDate).format('MMM DD YY')}
+                    </DateButton>
+                </NewFoodCreator>
             </div>
             <div>
                 {foodComponents}
