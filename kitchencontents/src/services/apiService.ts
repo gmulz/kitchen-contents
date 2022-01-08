@@ -23,11 +23,11 @@ export default class KitchenAPIService {
                 expiry_date: formatDateYMD(food.expiry_date),
                 kitchen_area: food.kitchen_area,
                 quantity: food.quantity,
-                category: food.category
+                category: food.category 
             })
         });
         const responseObj = await response.json();
-        return {...food, id: responseObj.id} as Food;
+        return {...food, expiry_date: responseObj.expiry_date, id: responseObj.id} as Food;
     }
 
     static async getCategories() {

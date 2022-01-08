@@ -7,6 +7,7 @@ import KitchenAreaComponent from './components/KitchenArea';
 import Food from './models/Food';
 import Category from './models/Category';
 import { KitchenAreasContainer } from './AppStyles';
+import 'react-datepicker/dist/react-datepicker.css';
 
 interface AppState {
   kitchenAreas: KitchenArea[];
@@ -32,12 +33,23 @@ class App extends React.Component<{}, AppState> {
     this.setState({ kitchenAreas, categories, foods});
   }
 
+  async sendNewFood(food: Food) {
+    const newFood = await KitchenAPIService.postNewFood(food);
+    const newFoodArray = [...this.state.foods, newFood];
+    this.setState({foods: newFoodArray});
+  }
+
   render() {
     console.log(this.state.foods);
     const kitchenComponents = this.state.kitchenAreas.map(area => {
       const areaFoods = this.state.foods.filter(food => food.kitchen_area === area.id);
       
-      return <KitchenAreaComponent kitchenArea={area} categories={this.state.categories} foods={areaFoods}></KitchenAreaComponent>
+      return <KitchenAreaComponent 
+              kitchenArea={area} 
+              categories={this.state.categories} 
+              foods={areaFoods}
+              sendNewFood={this.sendNewFood.bind(this)}
+              />
     })
 
     return (
