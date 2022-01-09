@@ -6,6 +6,8 @@ import { Description, ExpirationDate, FoodItem, QuantitySpinner } from './FoodIt
 
 interface FoodItemProps {
     foodItem: Food;
+    updateFood: (f: Food) => Promise<void>;
+    deleteFood: (f: Food) => Promise<void>;
 }
 
 interface FoodItemState {
@@ -18,12 +20,18 @@ class FoodItemComponent extends React.Component<FoodItemProps, FoodItemState> {
         
     }
 
+    async spinQuantity(e) {
+        const newFood: Food = {...this.props.foodItem, quantity: e.target.value};
+        await this.props.updateFood(newFood);
+    }
+
     render() {
         return (
         <FoodItem>
             <QuantitySpinner 
                 type="number"
                 value={this.props.foodItem.quantity}
+                onChange={this.spinQuantity.bind(this)}
             />
             <Description>{this.props.foodItem.name}</Description>
             <ExpirationDate>{formatDateYMD(this.props.foodItem.expiry_date)}</ExpirationDate>

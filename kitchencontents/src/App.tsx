@@ -39,6 +39,22 @@ class App extends React.Component<{}, AppState> {
     this.setState({foods: newFoodArray});
   }
 
+  async updateFood(food: Food) {
+    const updatedFood = await KitchenAPIService.updateFood(food);
+    const updatedFoodArray = [...this.state.foods];
+    const idx = updatedFoodArray.findIndex(f => f.id === updatedFood.id);
+    updatedFoodArray[idx] = updatedFood;
+    this.setState({foods: updatedFoodArray});
+  }
+
+  async deleteFood(food: Food) {
+    const deletedFood = await KitchenAPIService.deleteFood(food);
+    const updatedFoodArray = [...this.state.foods];
+    const idx = updatedFoodArray.findIndex(f => f.id === deletedFood.id);
+    updatedFoodArray.splice(idx, 1);
+    this.setState({foods: updatedFoodArray});
+  }
+
   render() {
     console.log(this.state.foods);
     const kitchenComponents = this.state.kitchenAreas.map(area => {
@@ -49,6 +65,8 @@ class App extends React.Component<{}, AppState> {
               categories={this.state.categories} 
               foods={areaFoods}
               sendNewFood={this.sendNewFood.bind(this)}
+              updateFood={this.updateFood.bind(this)}
+              deleteFood={this.deleteFood.bind(this)}
               />
     })
 

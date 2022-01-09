@@ -11,6 +11,8 @@ export interface CategoryComponentProps {
     category: Category;
     foods: Food[];
     sendNewFood: (food: Food) => Promise<void>;
+    updateFood: (food: Food) => Promise<void>;
+    deleteFood: (food: Food) => Promise<void>;
     kitchenArea: KitchenArea;
 }
 
@@ -36,7 +38,7 @@ class CategoryComponent extends React.Component<CategoryComponentProps, Category
 
     }
 
-    onKeyPress(e) {
+    async onKeyPress(e) {
         if (e.key === 'Enter') {
             e.preventDefault();
             const food: Food = { 
@@ -46,7 +48,8 @@ class CategoryComponent extends React.Component<CategoryComponentProps, Category
                 kitchen_area: this.props.kitchenArea.id,
                 category: this.props.category.id,
             } as Food; 
-            this.props.sendNewFood(food);
+            await this.props.sendNewFood(food);
+            this.setState({ inputName: '', inputExpirationDate: new Date(), inputQuantity: 0});
         }
     }
 
@@ -70,7 +73,9 @@ class CategoryComponent extends React.Component<CategoryComponentProps, Category
     }
 
     render() {
-        let foodComponents = this.props.foods.map(food => <FoodItemComponent foodItem={food}></FoodItemComponent>)
+        let foodComponents = this.props.foods.map(food => <FoodItemComponent foodItem={food} 
+                                                                             updateFood={this.props.updateFood} 
+                                                                             deleteFood={this.props.deleteFood} />);
         return (
         <div className='category'>
             <div className='category-header'>

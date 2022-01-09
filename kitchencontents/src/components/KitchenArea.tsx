@@ -12,6 +12,8 @@ interface KitchenAreaProps {
     categories: Category[];
     foods: Food[];
     sendNewFood: (f: Food) => Promise<void>;
+    updateFood: (f: Food) => Promise<void>;
+    deleteFood: (f: Food) => Promise<void>;
 }
 
 class KitchenAreaComponent extends React.Component<KitchenAreaProps, {}> {
@@ -24,6 +26,8 @@ class KitchenAreaComponent extends React.Component<KitchenAreaProps, {}> {
         const categoryComponents = this.props.categories.map(cat => {
             const food = this.props.foods.filter(food => food.category === cat.id);
             return <CategoryComponent 
+                        updateFood={this.props.updateFood}
+                        deleteFood={this.props.deleteFood}
                         category={cat} 
                         foods={food} 
                         sendNewFood={this.props.sendNewFood} 

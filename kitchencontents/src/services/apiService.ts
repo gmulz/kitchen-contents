@@ -9,6 +9,15 @@ const POST_INFO = {
     headers: {'Content-Type': 'application/json'}
 }
 
+const PUT_INFO = {
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json'}
+}
+
+const DELETE_INFO = {
+    method: 'DELETE',
+}
+
 export default class KitchenAPIService {
     static async getAllFood() {
         const response = await fetch(apiURL + `/food/`);
@@ -28,6 +37,26 @@ export default class KitchenAPIService {
         });
         const responseObj = await response.json();
         return {...food, id: responseObj.id} as Food;
+    }
+
+    //update food
+    static async updateFood(food: Food) {
+        const response = await fetch(`${apiURL}/food/${food.id}/`, {
+            ...PUT_INFO,
+            body: JSON.stringify({
+                ...food
+            })
+        });
+        const responseObj = await response.json();
+        return responseObj as Food;
+    }
+    //delete food
+    static async deleteFood(food: Food) {
+        const response = await fetch(`${apiURL}/food/${food.id}/`, {
+            ...DELETE_INFO,
+        });
+        const responseObj = await response.json();
+        return responseObj;
     }
 
     static async getCategories() {
