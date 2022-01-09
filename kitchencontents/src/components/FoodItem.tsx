@@ -4,7 +4,7 @@ import React from 'react';
 import Food from '../models/Food';
 import { formatDateYMD } from '../utils/DateUtils';
 import { DateButton } from './CategoryStyles';
-import { Description, ExpirationDate, FoodItem, Icon, InfoContainer, QuantitySpinner } from './FoodItemStyles';
+import { Description, ExpirationDate, FoodItem, Icon, InfoContainer, NameInput, QuantitySpinner } from './FoodItemStyles';
 import DatePicker from 'react-datepicker';
 
 
@@ -12,6 +12,7 @@ interface FoodItemProps {
     foodItem: Food;
     updateFood: (f: Food) => Promise<void>;
     deleteFood: (f: Food) => Promise<void>;
+    parity: boolean;
 }
 
 interface FoodItemState {
@@ -91,12 +92,13 @@ class FoodItemComponent extends React.Component<FoodItemProps, FoodItemState> {
     async makeUnEditable() {
         document.removeEventListener('click', this.outsideClickHandler, false);
         await this.props.updateFood({...this.props.foodItem, name: this.state.editName, expiry_date: this.state.editDate.toDateString()});
-        this.setState({editing: false, showDatePicker: false});
+        this.setState({editing: false, showDatePicker: false, hovering: false});
     }
 
     render() {
         return (
-        <FoodItem 
+        <FoodItem
+            parity={this.props.parity}
             ref={node => {this.node = node}}
             onMouseOver={this.handleMouseOver.bind(this)} 
             onMouseLeave={this.handleMouseLeave.bind(this)}>
@@ -105,14 +107,14 @@ class FoodItemComponent extends React.Component<FoodItemProps, FoodItemState> {
                 value={this.props.foodItem.quantity}
                 onChange={this.spinQuantity.bind(this)}
             />
-            {(this.state.hovering || this.props.foodItem.quantity === 0) && <Icon className={'fa fa-trash'} onClick={this.clickDelete.bind(this)}/>}
+            {(this.state.editing || this.props.foodItem.quantity === 0) && <Icon className={'fa fa-trash'} onClick={this.clickDelete.bind(this)}/>}
             <InfoContainer hidden={this.state.editing}>
                 <Description>{this.props.foodItem.name}</Description>
                 {this.state.hovering && <Icon className={'fa fa-edit'} onClick={this.clickEdit.bind(this)}/>}
                 <ExpirationDate>{formatDateYMD(this.props.foodItem.expiry_date)}</ExpirationDate>
             </InfoContainer>
             {this.state.editing && (<>
-                <input
+                <NameInput
                     type='text'
                     value={this.state.editName}
                     placeholder='Description'

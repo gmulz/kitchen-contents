@@ -44,7 +44,8 @@ class App extends React.Component<{}, AppState> {
     const updatedFoodArray = [...this.state.foods];
     const idx = updatedFoodArray.findIndex(f => f.id === updatedFood.id);
     updatedFoodArray[idx] = updatedFood;
-    this.setState({foods: updatedFoodArray});
+    const newFoodArray = updatedFoodArray.sort((a, b) => new Date(a.expiry_date).getTime() - new Date(b.expiry_date).getTime());
+    this.setState({foods: newFoodArray});
   }
 
   async deleteFood(food: Food) {

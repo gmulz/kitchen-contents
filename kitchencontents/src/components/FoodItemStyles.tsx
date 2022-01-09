@@ -3,6 +3,12 @@ import styled from 'styled-components';
 export const FoodItem = styled.div`
     display: flex;
     position: relative;
+    font-size: 0.7rem;
+    max-height: 1.5rem;
+    align-items: center;
+    padding: 0.3rem;
+    background-color: ${props => props.parity ? `#ffcad5` : `#ff8fa5`};
+
     .react-datepicker {
         position: absolute;
         right: 0;
@@ -23,7 +29,7 @@ export const ExpirationDate = styled.span`
 `;
 
 export const QuantitySpinner = styled.input`
-    max-width: 3rem;
+    max-width: 2rem;
 `;
 
 export const Icon = styled.span`
@@ -34,4 +40,8 @@ export const InfoContainer = styled.div`
     display: ${props => props.hidden? 'none' : 'flex'};
     flex-direction: row;
     flex: 1 1 0;
+`;
+
+export const NameInput = styled.input`
+    max-width: 5rem;
 `;

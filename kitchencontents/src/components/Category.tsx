@@ -2,7 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import Category from '../models/Category';
 import Food from '../models/Food';
-import { DateButton, NewFoodCreator, QuantitySpinner } from './CategoryStyles';
+import { CategoryContainer, CategoryHeader, CategoryTitle, CategoryTitleContainer, DateButton, NameInput, NewFoodCreator, QuantitySpinner } from './CategoryStyles';
 import FoodItemComponent from './FoodItem';
 import DatePicker from 'react-datepicker';
 import KitchenArea from '../models/KitchenArea';
@@ -73,19 +73,21 @@ class CategoryComponent extends React.Component<CategoryComponentProps, Category
     }
 
     render() {
-        let foodComponents = this.props.foods.map(food => <FoodItemComponent foodItem={food} 
+        let foodComponents = this.props.foods.map((food, idx) => <FoodItemComponent foodItem={food} 
                                                                              updateFood={this.props.updateFood} 
-                                                                             deleteFood={this.props.deleteFood} />);
+                                                                             deleteFood={this.props.deleteFood} 
+                                                                             parity={idx % 2 === 0}
+                                                                             />);
         return (
-        <div className='category'>
-            <div className='category-header'>
-                <div className='category-title-area'>
-                    <span className='category-title'>{this.props.category.name}</span>
-                </div>
+        <CategoryContainer>
+            <CategoryHeader>
+                <CategoryTitleContainer>
+                    <CategoryTitle>{this.props.category.name}</CategoryTitle>
+                </CategoryTitleContainer>
                 <NewFoodCreator
                     onKeyPress={this.onKeyPress.bind(this)}
                 >
-                    New Food: <input 
+                    <NameInput 
                         type='text'
                         value={this.state.inputName}
                         placeholder='Description'
@@ -102,11 +104,11 @@ class CategoryComponent extends React.Component<CategoryComponentProps, Category
                     {this.state.showDatePicker && <DatePicker selected={this.state.inputExpirationDate} inline onChange={this.changeDate.bind(this)} />}
                     
                 </NewFoodCreator>
-            </div>
+            </CategoryHeader>
             <div>
                 {foodComponents}
             </div>
-        </div>
+        </CategoryContainer>
         )
     }
 }
