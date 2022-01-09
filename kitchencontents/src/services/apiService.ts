@@ -56,8 +56,8 @@ export default class KitchenAPIService {
         const response = await fetch(`${apiURL}/food/${food.id}/`, {
             ...DELETE_INFO,
         });
-        const responseObj = await response.json();
-        return responseObj;
+        const status = response.status;
+        return food;
     }
 
     static async getCategories() {

@@ -73,6 +73,11 @@ class FoodItemComponent extends React.Component<FoodItemProps, FoodItemState> {
         this.setState({showDatePicker: !this.state.showDatePicker});
     }
 
+    async clickDelete(e) {
+        document.removeEventListener('click', this.outsideClickHandler, false);
+        await this.props.deleteFood(this.props.foodItem);
+    }
+
     clickEdit(e) {
         e.preventDefault();
         this.makeEditable();
@@ -100,7 +105,7 @@ class FoodItemComponent extends React.Component<FoodItemProps, FoodItemState> {
                 value={this.props.foodItem.quantity}
                 onChange={this.spinQuantity.bind(this)}
             />
-            {(this.state.hovering || this.props.foodItem.quantity === 0) && <Icon className={'fa fa-trash'} />}
+            {(this.state.hovering || this.props.foodItem.quantity === 0) && <Icon className={'fa fa-trash'} onClick={this.clickDelete.bind(this)}/>}
             <InfoContainer hidden={this.state.editing}>
                 <Description>{this.props.foodItem.name}</Description>
                 {this.state.hovering && <Icon className={'fa fa-edit'} onClick={this.clickEdit.bind(this)}/>}
