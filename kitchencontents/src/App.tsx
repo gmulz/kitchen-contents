@@ -35,7 +35,7 @@ class App extends React.Component<{}, AppState> {
 
   async sendNewFood(food: Food) {
     const newFood = await KitchenAPIService.postNewFood(food);
-    const newFoodArray = [...this.state.foods, newFood];
+    const newFoodArray = [...this.state.foods, newFood].sort((a, b) => new Date(a.expiry_date).getTime() - new Date(b.expiry_date).getTime());
     this.setState({foods: newFoodArray});
   }
 

@@ -27,7 +27,7 @@ export default class KitchenAPIService {
             })
         });
         const responseObj = await response.json();
-        return {...food, expiry_date: responseObj.expiry_date, id: responseObj.id} as Food;
+        return {...food, id: responseObj.id} as Food;
     }
 
     static async getCategories() {

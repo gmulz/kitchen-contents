@@ -1,5 +1,6 @@
 import React from 'react';
 import Food from '../models/Food';
+import { formatDateYMD } from '../utils/DateUtils';
 import { Description, ExpirationDate, FoodItem, QuantitySpinner } from './FoodItemStyles';
 
 
@@ -25,7 +26,7 @@ class FoodItemComponent extends React.Component<FoodItemProps, FoodItemState> {
                 value={this.props.foodItem.quantity}
             />
             <Description>{this.props.foodItem.name}</Description>
-            <ExpirationDate>{this.props.foodItem.expiry_date}</ExpirationDate>
+            <ExpirationDate>{formatDateYMD(this.props.foodItem.expiry_date)}</ExpirationDate>
             
         </FoodItem>
         )
