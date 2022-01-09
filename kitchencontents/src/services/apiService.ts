@@ -44,7 +44,8 @@ export default class KitchenAPIService {
         const response = await fetch(`${apiURL}/food/${food.id}/`, {
             ...PUT_INFO,
             body: JSON.stringify({
-                ...food
+                ...food,
+                expiry_date: formatDateYMD(food.expiry_date)
             })
         });
         const responseObj = await response.json();
