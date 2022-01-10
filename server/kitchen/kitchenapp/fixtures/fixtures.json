@@ -19,5 +19,12 @@
         "fields": {
             "name": "Freezer"
         }
+    },
+    {
+        "model": "kitchenapp.category",
+        "pk": 1,
+        "fields": {
+            "name": "All"
+        }
     }
 ]
