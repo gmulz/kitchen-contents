@@ -1,1 +1,1 @@
-export const apiURL = 'http://localhost:8001/kitchen'
+export const apiURL = 'http://raspberrypi.local:8001/kitchen'
