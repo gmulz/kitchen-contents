@@ -7,7 +7,23 @@ export const FoodItem = styled.div`
     max-height: 1.5rem;
     align-items: center;
     padding: 0.3rem;
-    background-color: ${props => props.parity ? `#ffcad5` : `#ff8fa5`};
+    color: ${props => props.dateDiff < 0 ? 'white' : 'black'};
+    background-color: ${props => {
+        if (props.dateDiff < 0) {
+            return 'black';
+        }
+        if (props.dateDiff < 1) {
+            return `#63876c`;
+        }
+        if(props.dateDiff < 2) {
+            return `#54d574`;
+        }
+        if(props.dateDiff < 3) {
+            return `#aaf0bb`;
+        }
+        return props.parity ? `#ffcad5` : `#ff8fa5`;
+    }
+    };
 
     .react-datepicker {
         position: absolute;

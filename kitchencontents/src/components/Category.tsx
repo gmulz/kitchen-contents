@@ -77,6 +77,7 @@ class CategoryComponent extends React.Component<CategoryComponentProps, Category
                                                                              updateFood={this.props.updateFood} 
                                                                              deleteFood={this.props.deleteFood} 
                                                                              parity={idx % 2 === 0}
+                                                                             key={food.id}
                                                                              />);
         return (
         <CategoryContainer>

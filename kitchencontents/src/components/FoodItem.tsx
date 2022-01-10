@@ -95,10 +95,17 @@ class FoodItemComponent extends React.Component<FoodItemProps, FoodItemState> {
         this.setState({editing: false, showDatePicker: false, hovering: false});
     }
 
+    dateDiff() {
+        const today = moment().endOf('day');
+        const expiry_date = moment(this.props.foodItem.expiry_date).endOf('day');
+        return expiry_date.diff(today, 'days');
+    }
+
     render() {
         return (
         <FoodItem
             parity={this.props.parity}
+            dateDiff={this.dateDiff()}
             ref={node => {this.node = node}}
             onMouseOver={this.handleMouseOver.bind(this)} 
             onMouseLeave={this.handleMouseLeave.bind(this)}>

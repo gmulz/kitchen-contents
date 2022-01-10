@@ -30,6 +30,7 @@ export const NewFoodCreator = styled.div`
         position: absolute;
         right: 0;
         z-index: 1000;
+        top: 1.5rem;
     }
 `;
 
