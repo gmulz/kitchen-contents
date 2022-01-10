@@ -14,6 +14,7 @@ interface KitchenAreaProps {
     sendNewFood: (f: Food) => Promise<void>;
     updateFood: (f: Food) => Promise<void>;
     deleteFood: (f: Food) => Promise<void>;
+    time: string;
 }
 
 class KitchenAreaComponent extends React.Component<KitchenAreaProps, {}> {
@@ -32,6 +33,7 @@ class KitchenAreaComponent extends React.Component<KitchenAreaProps, {}> {
                         foods={food} 
                         sendNewFood={this.props.sendNewFood} 
                         kitchenArea={this.props.kitchenArea}
+                        time={this.props.time}
                         />
         })
         return (

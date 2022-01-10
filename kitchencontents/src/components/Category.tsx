@@ -14,6 +14,7 @@ export interface CategoryComponentProps {
     updateFood: (food: Food) => Promise<void>;
     deleteFood: (food: Food) => Promise<void>;
     kitchenArea: KitchenArea;
+    time: string;
 }
 
 export interface CategoryComponentState {
@@ -78,6 +79,7 @@ class CategoryComponent extends React.Component<CategoryComponentProps, Category
                                                                              deleteFood={this.props.deleteFood} 
                                                                              parity={idx % 2 === 0}
                                                                              key={food.id}
+                                                                             time={this.props.time}
                                                                              />);
         return (
         <CategoryContainer>

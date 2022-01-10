@@ -8,14 +8,18 @@ import Food from './models/Food';
 import Category from './models/Category';
 import { KitchenAreasContainer } from './AppStyles';
 import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 
 interface AppState {
   kitchenAreas: KitchenArea[];
   foods: Food[];
   categories: Category[];
+  time: string;
 }
 
 class App extends React.Component<{}, AppState> {
+
+  intervalId: NodeJS.Timeout | null;
 
   constructor(props) {
     super(props);
@@ -23,7 +27,9 @@ class App extends React.Component<{}, AppState> {
       kitchenAreas: [],
       foods: [],
       categories: [],
+      time: new Date().toLocaleDateString(),
     }
+    this.intervalId = null;
   }
 
   async componentDidMount() {
@@ -31,6 +37,17 @@ class App extends React.Component<{}, AppState> {
     const categories = await KitchenAPIService.getCategories();
     const kitchenAreas = await KitchenAPIService.getKitchenAreas();
     this.setState({ kitchenAreas, categories, foods});
+    this.intervalId = setInterval(this.updateClock.bind(this), 10000);
+  }
+
+  updateClock() {
+    this.setState({
+      time: new Date().toLocaleDateString()
+    });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId!);
   }
 
   async sendNewFood(food: Food) {
@@ -57,11 +74,11 @@ class App extends React.Component<{}, AppState> {
   }
 
   render() {
-    console.log(this.state.foods);
     const kitchenComponents = this.state.kitchenAreas.map(area => {
       const areaFoods = this.state.foods.filter(food => food.kitchen_area === area.id);
       
-      return <KitchenAreaComponent 
+      return <KitchenAreaComponent
+              time={this.state.time}
               kitchenArea={area} 
               categories={this.state.categories} 
               foods={areaFoods}

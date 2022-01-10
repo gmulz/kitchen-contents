@@ -13,6 +13,7 @@ interface FoodItemProps {
     updateFood: (f: Food) => Promise<void>;
     deleteFood: (f: Food) => Promise<void>;
     parity: boolean;
+    time: string;
 }
 
 interface FoodItemState {
@@ -96,7 +97,7 @@ class FoodItemComponent extends React.Component<FoodItemProps, FoodItemState> {
     }
 
     dateDiff() {
-        const today = moment().endOf('day');
+        const today = moment(this.props.time).endOf('day');
         const expiry_date = moment(this.props.foodItem.expiry_date).endOf('day');
         return expiry_date.diff(today, 'days');
     }
