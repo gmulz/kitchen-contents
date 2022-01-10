@@ -12,4 +12,4 @@ python ./kitchen/manage.py migrate
 
 python ./kitchen/manage.py loaddata ./kitchen/kitchenapp/fixtures/fixtures.json
 
-python ./budgettrackerbackend/manage.py runserver 0.0.0.0:8001
+python ./kitchen/manage.py runserver 0.0.0.0:8001
